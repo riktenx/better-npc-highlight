@@ -41,6 +41,8 @@ public class NameAndIdContainer {
   public ArrayList<String> ignoreDeadExclusionIDList = new ArrayList<>();
   public ArrayList<String> hiddenNames = new ArrayList<>();
   public ArrayList<String> hiddenIds = new ArrayList<>();
+  public ArrayList<String> hiddenDeadNames = new ArrayList<>();
+  public ArrayList<String> hiddenDeadIds = new ArrayList<>();
   public ArrayList<String> beneathNPCs = new ArrayList<>();
 
   public void clearAll() {
@@ -62,6 +64,8 @@ public class NameAndIdContainer {
     clickboxIds.clear();
     hiddenNames.clear();
     hiddenIds.clear();
+    hiddenDeadNames.clear();
+    hiddenDeadIds.clear();
     beneathNPCs.clear();
     ignoreDeadExclusionList.clear();
     ignoreDeadExclusionIDList.clear();

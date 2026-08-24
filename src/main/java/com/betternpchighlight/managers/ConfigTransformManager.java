@@ -183,6 +183,14 @@ public class ConfigTransformManager {
 			nameAndIdContainer.hiddenIds.clear();
 			splitList(config.entityHiderIds(), nameAndIdContainer.hiddenIds);
 			break;
+		case "hideDeadNpcNames":
+			nameAndIdContainer.hiddenDeadNames.clear();
+			splitList(config.hideDeadNpcNames(), nameAndIdContainer.hiddenDeadNames);
+			break;
+		case "hideDeadNpcIds":
+			nameAndIdContainer.hiddenDeadIds.clear();
+			splitList(config.hideDeadNpcIds(), nameAndIdContainer.hiddenDeadIds);
+			break;
 		case "drawBeneathList":
 			nameAndIdContainer.beneathNPCs.clear();
 			splitList(config.drawBeneathList(), nameAndIdContainer.beneathNPCs);
