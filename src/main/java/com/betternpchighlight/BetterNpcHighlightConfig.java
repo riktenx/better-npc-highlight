@@ -1387,6 +1387,55 @@ public interface BetterNpcHighlightConfig extends Config
 		description = ""
 	)
 	void setEntityHiderIds(String ids);
+	@ConfigItem(
+			position = 5,
+			keyName = "hideDeadNpcToggle",
+			name = "Hide Dead NPCs",
+			description = "Hides specific NPCs only once they are dead/dying",
+			section = entityHiderSection
+	)
+	default boolean hideDeadNpcToggle()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+			position = 6,
+			keyName = "hideDeadNpcNames",
+			name = "Hide Dead NPC Names",
+			description = "NPCs by Name to hide once dead",
+			section = entityHiderSection
+	)
+	default String hideDeadNpcNames()
+	{
+		return "";
+	}
+
+	@ConfigItem(
+			keyName = "hideDeadNpcNames",
+			name = "",
+			description = ""
+	)
+	void setHideDeadNpcNames(String names);
+
+	@ConfigItem(
+			position = 7,
+			keyName = "hideDeadNpcIds",
+			name = "Hide Dead NPC IDs",
+			description = "NPCs by ID to hide once dead",
+			section = entityHiderSection
+	)
+	default String hideDeadNpcIds()
+	{
+		return "";
+	}
+
+	@ConfigItem(
+			keyName = "hideDeadNpcIds",
+			name = "",
+			description = ""
+	)
+	void setHideDeadNpcIds(String ids);
 
 	//------------------------------------------------------------//
 	// Presets Section

@@ -44,6 +44,7 @@ import net.runelite.client.callback.Hooks;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
+import net.runelite.client.game.NpcUtil;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDependency;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -101,6 +102,9 @@ public class BetterNpcHighlightPlugin extends Plugin {
 	@Inject
 	private ChatCommandManager chatCommandManager;
 
+	@Inject
+	private NpcUtil npcUtil;
+
 	public Instant lastTickUpdate;
 
 	private final Hooks.RenderableDrawListener drawListener = this::shouldDraw;
@@ -146,6 +150,8 @@ public class BetterNpcHighlightPlugin extends Plugin {
 			nameAndIdContainer.ignoreDeadExclusionIDList = configTransformManager.getList(config.ignoreDeadExclusionID());
 			nameAndIdContainer.hiddenNames = configTransformManager.getList(config.entityHiderNames());
 			nameAndIdContainer.hiddenIds = configTransformManager.getList(config.entityHiderIds());
+			nameAndIdContainer.hiddenDeadNames = configTransformManager.getList(config.hideDeadNpcNames());
+			nameAndIdContainer.hiddenDeadIds = configTransformManager.getList(config.hideDeadNpcIds());
 			nameAndIdContainer.beneathNPCs = configTransformManager.getList(config.drawBeneathList());
 
 			hooks.registerRenderableDrawListener(drawListener);
@@ -300,8 +306,20 @@ public class BetterNpcHighlightPlugin extends Plugin {
 
 			if (config.entityHiderToggle())
 			{
-				return !nameAndIdContainer.hiddenIds.contains(String.valueOf(npc.getId()))
-						&& (npc.getName() != null && !nameAndIdContainer.hiddenNames.contains(npc.getName().toLowerCase()));
+				if (nameAndIdContainer.hiddenIds.contains(String.valueOf(npc.getId()))
+						|| (npc.getName() != null && nameAndIdContainer.hiddenNames.contains(npc.getName().toLowerCase())))
+				{
+					return false;
+				}
+			}
+
+			if (config.hideDeadNpcToggle() && (npc.isDead() || npcUtil.isDying(npc)))
+			{
+				if (nameAndIdContainer.hiddenDeadIds.contains(String.valueOf(npc.getId()))
+						|| (npc.getName() != null && nameAndIdContainer.hiddenDeadNames.contains(npc.getName().toLowerCase())))
+				{
+					return false;
+				}
 			}
 		}
 		return true;
