@@ -1250,6 +1250,18 @@ public interface BetterNpcHighlightConfig extends Config
 
 	@ConfigItem(
 		position = 2,
+		keyName = "slayerDeprioritizeHighlight",
+		name = "Deprioritize Slayer Task Highlights",
+		description = "Prioritizes custom highlights colors/styles on slayer task NPCs rather than the slayer task highlight colors/styles",
+		section = slayerSection
+	)
+	default boolean slayerDeprioritizeHighlight()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		position = 3,
 		keyName = "taskHighlightStyle",
 		name = "Slayer Highlight Style",
 		description = "Picks the highlight style you want for NPCs on your slayer task",

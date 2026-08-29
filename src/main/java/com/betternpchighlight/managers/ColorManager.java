@@ -28,7 +28,7 @@ public class ColorManager {
    * @return Color
    */
   public Color getSpecificColor(NPCInfo n) {
-    if (n.isTask() && config.slayerHighlight())
+    if (shouldUseSlayerHighlight(n))
     {
       return config.slayerRave() ? getRaveColor(config.slayerRaveSpeed()) : config.taskColor();
     }
@@ -165,5 +165,22 @@ public class ColorManager {
   public Color getRaveColor(int speed) {
     int ticks = speed / 20;
     return Color.getHSBColor((client.getGameCycle() % ticks) / ((float) ticks), 1.0f, 1.0f);
+  }
+
+  public boolean hasCustomHighlight(NPCInfo n) {
+    // Check NPCInfo first to avoid config calls since this'll be referenced onRender too
+    return (n.getTile().isHighlight() && config.tileHighlight())
+		|| (n.getTrueTile().isHighlight() && config.trueTileHighlight())
+		|| (n.getSwTile().isHighlight() && config.swTileHighlight())
+		|| (n.getSwTrueTile().isHighlight() && config.swTrueTileHighlight())
+		|| (n.getHull().isHighlight() && config.hullHighlight())
+		|| (n.getArea().isHighlight() && config.areaHighlight())
+		|| (n.getOutline().isHighlight() && config.outlineHighlight())
+		|| (n.getClickbox().isHighlight() && config.clickboxHighlight());
+  }
+
+  // Use the slayer highlight if the config is enabled, the NPC is a slayer task, AND (if deprio is disabled OR there's no custom highlight set)
+  public boolean shouldUseSlayerHighlight(NPCInfo n) {
+    return n.isTask() && config.slayerHighlight() && (!config.slayerDeprioritizeHighlight() || !hasCustomHighlight(n));
   }
 }
