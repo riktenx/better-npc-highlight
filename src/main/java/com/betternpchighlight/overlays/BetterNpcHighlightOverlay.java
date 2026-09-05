@@ -41,7 +41,7 @@ import net.runelite.client.ui.overlay.outline.ModelOutlineRenderer;
 import javax.inject.Inject;
 
 import com.betternpchighlight.BetterNpcHighlightConfig;
-import com.betternpchighlight.config.GlobalConfig.tagStyleMode;
+import com.betternpchighlight.BetterNpcHighlightConfig.tagStyleMode;
 import com.betternpchighlight.data.MemorizedNpc;
 import com.betternpchighlight.data.NPCInfo;
 import com.betternpchighlight.data.NameAndIdContainer;

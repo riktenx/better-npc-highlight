@@ -3,7 +3,7 @@ package com.betternpchighlight.config.migrators;
 import java.util.Set;
 
 import com.betternpchighlight.BetterNpcHighlightConfig;
-import com.betternpchighlight.config.GlobalConfig.tagStyleMode;
+import com.betternpchighlight.BetterNpcHighlightConfig.tagStyleMode;
 
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.config.ConfigManager;

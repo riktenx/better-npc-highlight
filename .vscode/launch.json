@@ -9,7 +9,7 @@
       "name": "Debug RuneLite Plugin",
       "request": "launch",
       "mainClass": "com.betternpchighlight.BetterNpcHighlightTest",
-      "projectName": "runelite-plugins",
+      "projectName": "better-npc-highlight",
       "cwd": "${workspaceFolder}",
       "args": "--developer-mode --debug --profile=plugintesting",
       "vmArgs": "-ea"

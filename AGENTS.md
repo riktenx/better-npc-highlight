@@ -25,8 +25,9 @@ The plugin package root is `com.betternpchighlight`, and all source lives under
 
 ## Package map
 
-- `config/` — config interfaces, one per feature. `BetterNpcHighlightConfig` composes them all.
 - `config/migrators/ConfigMigrator` — one-shot config migrations invoked from `providesConfig`.
+- `BetterNpcHighlightConfig` — the single config interface in the plugin root package. All config items, sections,
+  and enums live here (one file per feature was removed so RuneLite's built-in default persistence works).
 - `data/` — plain data holders: `HighlightColor`, `NPCInfo`, `NameAndIdContainer`, `MemorizedNpc`.
 - `managers/` — feature logic: `ColorManager`, `ConfigTransformManager`, `MenuManager`, `RespawnManager`,
   `SlayerPluginManager`.
@@ -38,14 +39,16 @@ The plugin package root is `com.betternpchighlight`, and all source lives under
 
 - **Do not change `keyName` values.** Config values are persisted by `keyName` under the config group
   `BetterNpcHighlight`. Renaming keys silently wipes user settings. Section names are display-only and safe to
-  change.
+  change. Config item `position` is scoped to its `section` (positions restart per section).
+- **All config lives in `BetterNpcHighlightConfig`.** Sections, config items, and enums (`tagStyleMode`,
+  `presetColorAmount`, `background`, `renderDistance`, `respawnTimerMode`, `npcMinimapMode`, `lineType`,
+  `highlightType`) are all declared there, ordered `section -> its items`. Do not split configs back into
+  per-feature interfaces — RuneLite only persists defaults for methods declared directly on the top level
+  config interface, so a split config breaks the settings panel on fresh profiles.
 - **Stateful managers must be `@Singleton`.** `NameAndIdContainer`, `ConfigReaderService`, and `RespawnManager`
   hold state and are `@Singleton`. Stateless managers (`ColorManager`, `MenuManager`, `ConfigTransformManager`,
   `SlayerPluginManager`) are intentionally not singletons — they only reference singletons/config, so multiple
   instances are harmless. If you add mutable state to a manager, mark it `@Singleton`.
-- **The `tagStyleMode` enum lives in `config/GlobalConfig`**, not `BetterNpcHighlightConfig`. Other enums live
-  with their owning feature config (`presetColorAmount` in `PresetsConfig`, `background`/`renderDistance`/
-  `respawnTimerMode`/`npcMinimapMode` in `MiscellaneousConfig`, `lineType` in `BetterNpcHighlightConfig`).
 - **Menu target strings**: RuneLite menu targets contain embedded color tags and an optional `(level-N)` suffix.
   `MenuManager.getMenuEntryString` (regex `MENU_TARGET_PATTERN`) is the single place that rebuilds a target's
   name/level coloring — reuse it rather than re-parsing tags elsewhere.
@@ -66,8 +69,8 @@ The plugin package root is `com.betternpchighlight`, and all source lives under
 
 ## Where future changes go
 
-- New highlight style → new config interface + add to `BetterNpcHighlightConfig` (both the `extends` list and a
-  `@ConfigSection`), extend `ConfigTransformManager` list handling + `createNpcInfo`, and add a case in
+- New highlight style → new `@ConfigSection` + config items in `BetterNpcHighlightConfig`, extend
+  `ConfigTransformManager` list handling + `createNpcInfo`, and add a case in
   `BetterNpcHighlightOverlay.renderNpcOverlay`.
 - New right-click option / tag behavior → `MenuManager` (see its section comments; it is structured for
   additions).

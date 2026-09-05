@@ -12,8 +12,8 @@ import java.util.regex.Pattern;
 import javax.inject.Inject;
 
 import com.betternpchighlight.BetterNpcHighlightConfig;
-import com.betternpchighlight.config.GlobalConfig.tagStyleMode;
-import com.betternpchighlight.config.PresetsConfig.presetColorAmount;
+import com.betternpchighlight.BetterNpcHighlightConfig.tagStyleMode;
+import com.betternpchighlight.BetterNpcHighlightConfig.presetColorAmount;
 import com.betternpchighlight.data.NPCInfo;
 import com.betternpchighlight.data.NameAndIdContainer;
 import com.google.common.collect.ImmutableSet;
