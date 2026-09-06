@@ -530,6 +530,7 @@ public class BetterNpcHighlightOverlay extends Overlay
 		if (area != null)
 		{
 			graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, antiAlias ? RenderingHints.VALUE_ANTIALIAS_ON : RenderingHints.VALUE_ANTIALIAS_OFF);
+			graphics.setStroke(new BasicStroke(1));
 			if (area.contains(mousePosition.getX(), mousePosition.getY()))
 			{
 				graphics.setColor(new Color(hovered.getRed(), hovered.getGreen(), hovered.getBlue(), lineAlpha));

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-09-06
+- **Fix**: Fixed line type not reseting when traversing down the render order, resulting in things like dashed clickboxes.
+
 ## 2026-09-05
 - **Fix**: Fixed config menu being unable to open if user did not have a default config value in their profile properties already. Achieved by consolidating configs from many interface files into a single monolithic config file.
 
