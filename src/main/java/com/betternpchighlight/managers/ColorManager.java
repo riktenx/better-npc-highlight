@@ -30,39 +30,39 @@ public class ColorManager {
 	public Color getSpecificColor(NPCInfo n) {
 		if (shouldUseSlayerHighlight(n))
 		{
-			return config.taskColor();
+			return applyConfigOrRaveColor(config.taskColor(), config.slayerRave(), config.slayerRaveSpeed());
 		}
 		else if (n.getTile().isHighlight() && config.tileHighlight())
 		{
-			return n.getTile().getColor();
+			return applyConfigOrRaveColor(n.getTile().getColor(), config.tileRave(), config.tileRaveSpeed());
 		}
 		else if (n.getTrueTile().isHighlight() && config.trueTileHighlight())
 		{
-			return n.getTrueTile().getColor();
+			return applyConfigOrRaveColor(n.getTrueTile().getColor(), config.trueTileRave(), config.trueTileRaveSpeed());
 		}
 		else if (n.getSwTile().isHighlight() && config.swTileHighlight())
 		{
-			return n.getSwTile().getColor();
+			return applyConfigOrRaveColor(n.getSwTile().getColor(), config.swTileRave(), config.swTileRaveSpeed());
 		}
 		else if (n.getSwTrueTile().isHighlight() && config.swTrueTileHighlight())
 		{
-			return n.getSwTrueTile().getColor();
+			return applyConfigOrRaveColor(n.getSwTrueTile().getColor(), config.swTrueTileRave(), config.swTrueTileRaveSpeed());
 		}
 		else if (n.getHull().isHighlight() && config.hullHighlight())
 		{
-			return n.getHull().getColor();
+			return applyConfigOrRaveColor(n.getHull().getColor(), config.hullRave(), config.hullRaveSpeed());
 		}
 		else if (n.getArea().isHighlight() && config.areaHighlight())
 		{
-			return n.getArea().getColor();
+			return applyConfigOrRaveColor(n.getArea().getColor(), config.areaRave(), config.areaRaveSpeed());
 		}
 		else if (n.getOutline().isHighlight() && config.outlineHighlight())
 		{
-			return n.getOutline().getColor();
+			return applyConfigOrRaveColor(n.getOutline().getColor(), config.outlineRave(), config.outlineRaveSpeed());
 		}
 		else if (n.getClickbox().isHighlight() && config.clickboxHighlight())
 		{
-			return n.getClickbox().getColor();
+			return applyConfigOrRaveColor(n.getClickbox().getColor(), config.clickboxRave(), config.clickboxRaveSpeed());
 		}
 		else
 		{
@@ -183,5 +183,29 @@ public class ColorManager {
 	 */
 	public boolean shouldUseSlayerHighlight(NPCInfo n) {
 		return n.isTask() && config.slayerHighlight() && (!config.slayerDeprioritizeHighlight() || !hasCustomHighlight(n));
+	}
+
+	/**
+	 * Resolves the color for a highlight style, preferring the slayer task color
+	 * when the NPC is a task and otherwise using the provided custom color. Rave
+	 * mode is applied to whichever color is selected.
+	 */
+	public Color resolveColor(boolean isTask, Color taskColor, Color customColor, boolean customRave, int customRaveSpeed) {
+		return isTask
+				? applyConfigOrRaveColor(taskColor, config.slayerRave(), config.slayerRaveSpeed())
+				: applyConfigOrRaveColor(customColor, customRave, customRaveSpeed);
+	}
+
+	/**
+	 * Returns the cycling rave color when rave mode is enabled, otherwise the
+	 * base color.
+	 */
+	public Color applyConfigOrRaveColor(Color base, boolean raveEnabled, int raveSpeed) {
+		return raveEnabled ? getRaveColor(raveSpeed) : base;
+	}
+
+	private Color getRaveColor(int speed) {
+		int ticks = speed / 20;
+		return Color.getHSBColor((client.getGameCycle() % ticks) / ((float) ticks), 1.0f, 1.0f);
 	}
 }

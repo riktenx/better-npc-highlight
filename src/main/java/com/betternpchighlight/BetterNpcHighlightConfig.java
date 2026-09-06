@@ -120,7 +120,18 @@ public interface BetterNpcHighlightConfig extends Config {
 		return true;
 	}
 
-	@ConfigItem(position = 8, keyName = "tileLines", name = "Tile Line Type", description = "Sets the tile outline to regular, dashed, or corners only", section = tileSection)
+	@ConfigItem(position = 8, keyName = "tileRave", name = "Enable Rave Mode", description = "Sets all tile overlays to Rave Mode", section = tileSection)
+	default boolean tileRave() {
+		return false;
+	}
+
+	@ConfigItem(position = 9, keyName = "tileRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = tileSection)
+	@Units(Units.MILLISECONDS)
+	default int tileRaveSpeed() {
+		return 6000;
+	}
+
+	@ConfigItem(position = 10, keyName = "tileLines", name = "Tile Line Type", description = "Sets the tile outline to regular, dashed, or corners only", section = tileSection)
 	default lineType tileLines() {
 		return lineType.REG;
 	}
@@ -174,7 +185,18 @@ public interface BetterNpcHighlightConfig extends Config {
 		return true;
 	}
 
-	@ConfigItem(position = 8, keyName = "trueTileLines", name = "True Tile Line Type", description = "Sets the true tile outline to regular, dashed, or corners only", section = trueTileSection)
+	@ConfigItem(position = 8, keyName = "trueTileRave", name = "Enable Rave Mode", description = "Sets all true tile overlays to Rave Mode", section = trueTileSection)
+	default boolean trueTileRave() {
+		return false;
+	}
+
+	@ConfigItem(position = 9, keyName = "trueTileRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = trueTileSection)
+	@Units(Units.MILLISECONDS)
+	default int trueTileRaveSpeed() {
+		return 6000;
+	}
+
+	@ConfigItem(position = 10, keyName = "trueTileLines", name = "True Tile Line Type", description = "Sets the true tile outline to regular, dashed, or corners only", section = trueTileSection)
 	default lineType trueTileLines() {
 		return lineType.REG;
 	}
@@ -228,7 +250,18 @@ public interface BetterNpcHighlightConfig extends Config {
 		return true;
 	}
 
-	@ConfigItem(position = 8, keyName = "swTileLines", name = "South West Tile Line Type", description = "Sets the sw tile outline to regular, dashed, or corners only", section = swTileSection)
+	@ConfigItem(position = 8, keyName = "swTileRave", name = "Enable Rave Mode", description = "Sets all sw tile overlays to Rave Mode", section = swTileSection)
+	default boolean swTileRave() {
+		return false;
+	}
+
+	@ConfigItem(position = 9, keyName = "swTileRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = swTileSection)
+	@Units(Units.MILLISECONDS)
+	default int swTileRaveSpeed() {
+		return 6000;
+	}
+
+	@ConfigItem(position = 10, keyName = "swTileLines", name = "South West Tile Line Type", description = "Sets the sw tile outline to regular, dashed, or corners only", section = swTileSection)
 	default lineType swTileLines() {
 		return lineType.REG;
 	}
@@ -282,7 +315,18 @@ public interface BetterNpcHighlightConfig extends Config {
 		return true;
 	}
 
-	@ConfigItem(position = 8, keyName = "swTrueTileLines", name = "South West True Tile Line Type", description = "Sets the sw true tile outline to regular, dashed, or corners only", section = swTrueTileSection)
+	@ConfigItem(position = 8, keyName = "swTrueTileRave", name = "Enable Rave Mode", description = "Sets all sw true tile overlays to Rave Mode", section = swTrueTileSection)
+	default boolean swTrueTileRave() {
+		return false;
+	}
+
+	@ConfigItem(position = 9, keyName = "swTrueTileRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = swTrueTileSection)
+	@Units(Units.MILLISECONDS)
+	default int swTrueTileRaveSpeed() {
+		return 6000;
+	}
+
+	@ConfigItem(position = 10, keyName = "swTrueTileLines", name = "South West True Tile Line Type", description = "Sets the sw true tile outline to regular, dashed, or corners only", section = swTrueTileSection)
 	default lineType swTrueTileLines() {
 		return lineType.REG;
 	}
@@ -335,6 +379,17 @@ public interface BetterNpcHighlightConfig extends Config {
 	default boolean hullAA() {
 		return true;
 	}
+
+	@ConfigItem(position = 8, keyName = "hullRave", name = "Enable Rave Mode", description = "Sets all hull overlays to Rave Mode", section = hullSection)
+	default boolean hullRave() {
+		return false;
+	}
+
+	@ConfigItem(position = 9, keyName = "hullRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = hullSection)
+	@Units(Units.MILLISECONDS)
+	default int hullRaveSpeed() {
+		return 6000;
+	}
 	//endregion
 
 	//region Area
@@ -366,6 +421,17 @@ public interface BetterNpcHighlightConfig extends Config {
 	@ConfigItem(position = 4, keyName = "areaColor", name = "Highlight Color", description = "Sets color of npc highlights", section = areaSection)
 	default Color areaColor() {
 		return new Color(0, 255, 255, 50);
+	}
+
+	@ConfigItem(position = 5, keyName = "areaRave", name = "Enable Rave Mode", description = "Sets all area overlays to Rave Mode", section = areaSection)
+	default boolean areaRave() {
+		return false;
+	}
+
+	@ConfigItem(position = 6, keyName = "areaRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = areaSection)
+	@Units(Units.MILLISECONDS)
+	default int areaRaveSpeed() {
+		return 6000;
 	}
 	//endregion
 
@@ -411,6 +477,17 @@ public interface BetterNpcHighlightConfig extends Config {
 	default int outlineFeather() {
 		return 2;
 	}
+
+	@ConfigItem(position = 7, keyName = "outlineRave", name = "Enable Rave Mode", description = "Sets all outline overlays to Rave Mode", section = outlineSection)
+	default boolean outlineRave() {
+		return false;
+	}
+
+	@ConfigItem(position = 8, keyName = "outlineRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = outlineSection)
+	@Units(Units.MILLISECONDS)
+	default int outlineRaveSpeed() {
+		return 6000;
+	}
 	//endregion
 
 	//region Clickbox
@@ -454,6 +531,17 @@ public interface BetterNpcHighlightConfig extends Config {
 	default boolean clickboxAA() {
 		return true;
 	}
+
+	@ConfigItem(position = 7, keyName = "clickboxRave", name = "Enable Rave Mode", description = "Sets all clickbox overlays to Rave Mode", section = clickboxSection)
+	default boolean clickboxRave() {
+		return false;
+	}
+
+	@ConfigItem(position = 8, keyName = "clickboxRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = clickboxSection)
+	@Units(Units.MILLISECONDS)
+	default int clickboxRaveSpeed() {
+		return 6000;
+	}
 	//endregion
 
 	//region Slayer
@@ -490,6 +578,17 @@ public interface BetterNpcHighlightConfig extends Config {
 	@ConfigItem(position = 6, keyName = "slayerAA", name = "Anti-Aliasing", description = "Turns on anti-aliasing for the slayer highlights. Makes them smoother.", section = slayerSection)
 	default boolean slayerAA() {
 		return true;
+	}
+
+	@ConfigItem(position = 7, keyName = "slayerRave", name = "Enable Rave Mode", description = "Sets all slayer overlays to Rave Mode", section = slayerSection)
+	default boolean slayerRave() {
+		return false;
+	}
+
+	@ConfigItem(position = 8, keyName = "slayerRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = slayerSection)
+	@Units(Units.MILLISECONDS)
+	default int slayerRaveSpeed() {
+		return 6000;
 	}
 	//endregion
 
