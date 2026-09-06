@@ -45,12 +45,13 @@ public interface BetterNpcHighlightConfig extends Config {
 	}
 
 	//region Global Tag Style
+	public static final Set<tagStyleMode> defaultTagStyle = Set.of(tagStyleMode.TILE);
 	@ConfigSection(name = "Global Tag Style", description = "Settings that apply across multiple highlight types", position = 0, closedByDefault = false)
 	String globalTagSection = "globalTagStyle";
 
 	@ConfigItem(position = 0, keyName = "tagStyleModeSet", name = "Tag Style", description = "Sets which highlight styles to apply to an NPC when tagged from the right click menu. Select none to hide the right click menu option.", section = globalTagSection)
 	default Set<tagStyleMode> tagStyleModeSet() {
-		return Set.of(tagStyleMode.TILE);
+		return defaultTagStyle;
 	}
 
 	@ConfigItem(position = 1, keyName = "useGlobalTileColor", name = "Use Global Tile Color", description = "Forces tile, true tile, SW tile, and SW true tile to use the same colors. Will not override highlights using a preset.", section = globalTagSection)
@@ -735,9 +736,9 @@ public interface BetterNpcHighlightConfig extends Config {
 	@Getter
 	@RequiredArgsConstructor
 	enum tagStyleMode {
-		NONE("None", "none"), TILE(tileSection, tileSection), TRUE_TILE(trueTileSection, "trueTile"), SW_TILE("SW Tile", "swTile"),
-		SW_TRUE_TILE("SW True Tile", "swTrueTile"), HULL(hullSection, hullSection), AREA(areaSection, areaSection), OUTLINE(outlineSection, outlineSection),
-		CLICKBOX(clickboxSection, clickboxSection),;
+		NONE("None", "none"), TILE("Tile", tileSection), TRUE_TILE("True Tile", trueTileSection), SW_TILE("SW Tile", swTileSection),
+		SW_TRUE_TILE("SW True Tile", swTrueTileSection), HULL("Hull", hullSection), AREA("Area", areaSection), OUTLINE("Outline", outlineSection),
+		CLICKBOX("Clickbox", clickboxSection),;
 
 		@Getter
 		private final String group;
