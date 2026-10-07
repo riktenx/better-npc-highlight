@@ -65,14 +65,18 @@ public class MenuManager {
 	 * handler for the entry's action type.
 	 */
 	public void onMenuEntryAdded(MenuEntryAdded event) {
-		MenuAction action = MenuAction.of(normalizeType(event.getType()));
 		NPC npc = event.getMenuEntry().getNpc();
+		if (npc == null)
+		{
+			return;
+		}
 
+		MenuAction action = MenuAction.of(normalizeType(event.getType()));
 		if (NPC_MENU_ACTIONS.contains(action))
 		{
 			colorizeNpcMenuEntry(event, npc);
 		}
-		else if (action == MenuAction.EXAMINE_NPC && npc != null)
+		else if (action == MenuAction.EXAMINE_NPC)
 		{
 			handleExamineMenuEntry(event, npc);
 		}
