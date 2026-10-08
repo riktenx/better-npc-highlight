@@ -65,6 +65,8 @@ public class MenuManager {
 	 * handler for the entry's action type.
 	 */
 	public void onMenuEntryAdded(MenuEntryAdded event) {
+		// TODO: https://github.com/riktenx/better-npc-highlight/pull/12
+		// Once NPC submenu entries are supported, modify this so those can be recolored
 		NPC npc = event.getMenuEntry().getNpc();
 		if (npc == null)
 		{

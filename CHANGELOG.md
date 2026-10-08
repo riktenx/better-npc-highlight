@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-10-08
+- **Fix**: Fixed issue recoloring NPC submenu entries. Remains unsupported until RuneLite adds support for fetching NPC from submenu entries.
+
 ## 2026-09-06
 - **Fix**: Fixed line type not reseting when traversing down the render order, resulting in things like dashed clickboxes.
 - **Added**: Restored rave mode to all highlight types
