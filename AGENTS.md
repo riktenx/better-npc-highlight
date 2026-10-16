@@ -33,6 +33,10 @@ The plugin package root is `com.betternpchighlight`, and all source lives under
   `SlayerPluginManager`.
 - `overlays/` — `BetterNpcHighlightOverlay` (scene) and `BetterNpcMinimapOverlay`.
 - `service/ConfigReaderService` — CSV-style config string parsing/serialization with comma escaping.
+- `service/ProfileService` — exports/imports all visible config items as a shareable text profile (header line, then
+  `keyName=` Base64 value per setting; an empty value means unset). Keys come from `ConfigManager.getConfigDescriptor`,
+  so new config items are included automatically.
+- `ui/ProfilePanel` — sidebar panel for profile export/import, registered by the plugin as a `NavigationButton`.
 - `BetterNpcHighlightPlugin` — the `@PluginDescriptor` entry point; wires up events and delegates to managers.
 
 ## Critical conventions and gotchas

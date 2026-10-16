@@ -33,6 +33,7 @@ import com.betternpchighlight.managers.RespawnManager;
 import com.betternpchighlight.managers.SlayerPluginManager;
 import com.betternpchighlight.overlays.BetterNpcHighlightOverlay;
 import com.betternpchighlight.overlays.BetterNpcMinimapOverlay;
+import com.betternpchighlight.ui.ProfilePanel;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +49,10 @@ import net.runelite.client.plugins.PluginDependency;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.slayer.SlayerPlugin;
 import net.runelite.client.plugins.slayer.SlayerPluginService;
+import net.runelite.client.ui.ClientToolbar;
+import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.overlay.OverlayManager;
+import net.runelite.client.util.ImageUtil;
 import javax.inject.Inject;
 
 @Slf4j
@@ -98,6 +102,11 @@ public class BetterNpcHighlightPlugin extends Plugin {
 	@Inject
 	private RespawnManager respawnManager;
 
+	@Inject
+	private ClientToolbar clientToolbar;
+
+	private NavigationButton profileNavButton;
+
 	private final Hooks.RenderableDrawListener drawListener = this::shouldDraw;
 
 	@Provides
@@ -107,6 +116,14 @@ public class BetterNpcHighlightPlugin extends Plugin {
 	}
 
 	protected void startUp() {
+		profileNavButton = NavigationButton.builder()
+				.tooltip("Better NPC Highlight Profiles")
+				.icon(ImageUtil.loadImageResource(getClass(), "profile_icon.png"))
+				.priority(10)
+				.panel(injector.getInstance(ProfilePanel.class))
+				.build();
+		clientToolbar.addNavigation(profileNavButton);
+
 		clientThread.invokeLater(() -> {
 			reset();
 			overlayManager.add(overlay);
@@ -129,6 +146,7 @@ public class BetterNpcHighlightPlugin extends Plugin {
 		overlayManager.remove(overlay);
 		overlayManager.remove(mapOverlay);
 		hooks.unregisterRenderableDrawListener(drawListener);
+		clientToolbar.removeNavigation(profileNavButton);
 	}
 
 	private void reset() {

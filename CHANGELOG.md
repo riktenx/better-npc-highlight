@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-10-16
+- **Added**: Profiles sidebar panel for sharing settings. Export copies every Better NPC Highlight setting to the clipboard as a text profile, and importing a profile replaces your settings with the ones it contains. Malformed profiles are rejected without changing anything, and settings from other plugin versions that this version does not recognise are skipped.
+
 ## 2026-10-08
 - **Fix**: Fixed issue recoloring NPC submenu entries. Remains unsupported until RuneLite adds support for fetching NPC from submenu entries.
 
