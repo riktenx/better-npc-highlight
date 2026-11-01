@@ -195,7 +195,14 @@ public class ConfigTransformManager {
 		case "presetFillColor4":
 		case "presetColor5":
 		case "presetFillColor5":
-		case "useGlobalTileColor":
+		case "tileUseGlobalColor":
+		case "trueTileUseGlobalColor":
+		case "swTileUseGlobalColor":
+		case "swTrueTileUseGlobalColor":
+		case "hullUseGlobalColor":
+		case "areaUseGlobalColor":
+		case "outlineUseGlobalColor":
+		case "clickboxUseGlobalColor":
 		case "globalTileColor":
 		case "globalFillColor":
 			recreateNPCInfoList();
@@ -246,25 +253,31 @@ public class ConfigTransformManager {
 	 * Builds an NPCInfo for the given NPC, or null when it should not be highlighted.
 	 */
 	public NPCInfo createNpcInfo(NPC npc) {
-		Color globalTileColor = config.useGlobalTileColor() ? config.globalTileColor() : null;
-		Color globalFillColor = config.useGlobalTileColor() ? config.globalFillColor() : null;
+		Color globalTileColor = config.globalTileColor();
+		Color globalFillColor = config.globalFillColor();
 
 		HighlightColor tile = resolveHighlightColor(nameAndIdContainer.getTileNames(), nameAndIdContainer.getTileIds(), npc,
-				coalesceColor(globalTileColor, config.tileColor()), coalesceColor(globalFillColor, config.tileFillColor()));
+				useGlobalOrStyle(config.tileUseGlobalColor(), globalTileColor, config.tileColor()),
+				useGlobalOrStyle(config.tileUseGlobalColor(), globalFillColor, config.tileFillColor()));
 		HighlightColor trueTile = resolveHighlightColor(nameAndIdContainer.getTrueTileNames(), nameAndIdContainer.getTrueTileIds(), npc,
-				coalesceColor(globalTileColor, config.trueTileColor()), coalesceColor(globalFillColor, config.trueTileFillColor()));
+				useGlobalOrStyle(config.trueTileUseGlobalColor(), globalTileColor, config.trueTileColor()),
+				useGlobalOrStyle(config.trueTileUseGlobalColor(), globalFillColor, config.trueTileFillColor()));
 		HighlightColor swTile = resolveHighlightColor(nameAndIdContainer.getSwTileNames(), nameAndIdContainer.getSwTileIds(), npc,
-				coalesceColor(globalTileColor, config.swTileColor()), coalesceColor(globalFillColor, config.swTileFillColor()));
+				useGlobalOrStyle(config.swTileUseGlobalColor(), globalTileColor, config.swTileColor()),
+				useGlobalOrStyle(config.swTileUseGlobalColor(), globalFillColor, config.swTileFillColor()));
 		HighlightColor swTrueTile = resolveHighlightColor(nameAndIdContainer.getSwTrueTileNames(), nameAndIdContainer.getSwTrueTileIds(), npc,
-				coalesceColor(globalTileColor, config.swTrueTileColor()), coalesceColor(globalFillColor, config.swTrueTileFillColor()));
-		HighlightColor hull = resolveHighlightColor(nameAndIdContainer.getHullNames(), nameAndIdContainer.getHullIds(), npc, config.hullColor(),
-				config.hullFillColor());
-		HighlightColor area = resolveHighlightColor(nameAndIdContainer.getAreaNames(), nameAndIdContainer.getAreaIds(), npc, config.areaColor(),
-				null);
+				useGlobalOrStyle(config.swTrueTileUseGlobalColor(), globalTileColor, config.swTrueTileColor()),
+				useGlobalOrStyle(config.swTrueTileUseGlobalColor(), globalFillColor, config.swTrueTileFillColor()));
+		HighlightColor hull = resolveHighlightColor(nameAndIdContainer.getHullNames(), nameAndIdContainer.getHullIds(), npc,
+				useGlobalOrStyle(config.hullUseGlobalColor(), globalTileColor, config.hullColor()),
+				useGlobalOrStyle(config.hullUseGlobalColor(), globalFillColor, config.hullFillColor()));
+		HighlightColor area = resolveHighlightColor(nameAndIdContainer.getAreaNames(), nameAndIdContainer.getAreaIds(), npc,
+				useGlobalOrStyle(config.areaUseGlobalColor(), globalTileColor, config.areaColor()), null);
 		HighlightColor outline = resolveHighlightColor(nameAndIdContainer.getOutlineNames(), nameAndIdContainer.getOutlineIds(), npc,
-				config.outlineColor(), null);
+				useGlobalOrStyle(config.outlineUseGlobalColor(), globalTileColor, config.outlineColor()), null);
 		HighlightColor clickbox = resolveHighlightColor(nameAndIdContainer.getClickboxNames(), nameAndIdContainer.getClickboxIds(), npc,
-				config.clickboxColor(), config.clickboxFillColor());
+				useGlobalOrStyle(config.clickboxUseGlobalColor(), globalTileColor, config.clickboxColor()),
+				useGlobalOrStyle(config.clickboxUseGlobalColor(), globalFillColor, config.clickboxFillColor()));
 
 		boolean isTask = slayerPluginIntegration.checkSlayerPluginEnabled() && slayerPluginService != null
 				&& slayerPluginService.getTargets().contains(npc);
@@ -280,8 +293,12 @@ public class ConfigTransformManager {
 		return new NPCInfo(npc, tile, trueTile, swTile, swTrueTile, hull, area, outline, clickbox, isTask, ignoreDead);
 	}
 
-	private Color coalesceColor(Color color, Color defaultColor) {
-		return color != null ? color : defaultColor;
+	/**
+	 * Returns the global color when the style's Use Global Color toggle is on,
+	 * otherwise the style's own color.
+	 */
+	private Color useGlobalOrStyle(boolean useGlobal, Color globalColor, Color styleColor) {
+		return useGlobal ? globalColor : styleColor;
 	}
 
 	public String configListToString(boolean add, String name, List<String> strList, int preset) {

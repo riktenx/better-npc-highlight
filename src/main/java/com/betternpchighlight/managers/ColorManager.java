@@ -120,41 +120,37 @@ public class ColorManager {
 	 * @return Color
 	 */
 	public Color getTagColor() {
-		if (config.useGlobalTileColor())
-		{
-			return config.globalTileColor();
-		}
 		if (config.tagStyleModeSet().contains(tagStyleMode.TILE))
 		{
-			return config.tileColor();
+			return config.tileUseGlobalColor() ? config.globalTileColor() : config.tileColor();
 		}
 		else if (config.tagStyleModeSet().contains(tagStyleMode.TRUE_TILE))
 		{
-			return config.trueTileColor();
+			return config.trueTileUseGlobalColor() ? config.globalTileColor() : config.trueTileColor();
 		}
 		else if (config.tagStyleModeSet().contains(tagStyleMode.SW_TILE))
 		{
-			return config.swTileColor();
+			return config.swTileUseGlobalColor() ? config.globalTileColor() : config.swTileColor();
 		}
 		else if (config.tagStyleModeSet().contains(tagStyleMode.SW_TRUE_TILE))
 		{
-			return config.swTrueTileColor();
+			return config.swTrueTileUseGlobalColor() ? config.globalTileColor() : config.swTrueTileColor();
 		}
 		else if (config.tagStyleModeSet().contains(tagStyleMode.HULL))
 		{
-			return config.hullColor();
+			return config.hullUseGlobalColor() ? config.globalTileColor() : config.hullColor();
 		}
 		else if (config.tagStyleModeSet().contains(tagStyleMode.AREA))
 		{
-			return config.areaColor();
+			return config.areaUseGlobalColor() ? config.globalTileColor() : config.areaColor();
 		}
 		else if (config.tagStyleModeSet().contains(tagStyleMode.OUTLINE))
 		{
-			return config.outlineColor();
+			return config.outlineUseGlobalColor() ? config.globalTileColor() : config.outlineColor();
 		}
 		else if (config.tagStyleModeSet().contains(tagStyleMode.CLICKBOX))
 		{
-			return config.clickboxColor();
+			return config.clickboxUseGlobalColor() ? config.globalTileColor() : config.clickboxColor();
 		}
 		else
 		{

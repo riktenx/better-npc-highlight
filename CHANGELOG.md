@@ -1,4 +1,6 @@
 # Changelog
+## 2026-11-01
+- **Refactor**: Moved global color inheritence to each individual tag type. This separates the global tag color from the style applied on the right click menu.
 
 ## 2026-10-08
 - **Fix**: Fixed issue recoloring NPC submenu entries. Remains unsupported until RuneLite adds support for fetching NPC from submenu entries.

@@ -54,19 +54,14 @@ public interface BetterNpcHighlightConfig extends Config {
 		return defaultTagStyle;
 	}
 
-	@ConfigItem(position = 1, keyName = "useGlobalTileColor", name = "Use Global Tile Color", description = "Forces tile, true tile, SW tile, and SW true tile to use the same colors. Will not override highlights using a preset.", section = globalTagSection)
-	default boolean useGlobalTileColor() {
-		return false;
-	}
-
 	@Alpha
-	@ConfigItem(position = 2, keyName = "globalTileColor", name = "Global Tile Color", description = "Overrides all other tag style outlines.", section = globalTagSection)
+	@ConfigItem(position = 1, keyName = "globalTileColor", name = "Global Color", description = "Used as the highlight color for any tag style with 'Use Global Color' enabled. Preset colors still take priority.", section = globalTagSection)
 	default Color globalTileColor() {
 		return Color.CYAN;
 	}
 
 	@Alpha
-	@ConfigItem(position = 3, keyName = "globalFillColor", name = "Global Fill Color", description = "Overrides all other tag style fill colors.", section = globalTagSection)
+	@ConfigItem(position = 2, keyName = "globalFillColor", name = "Global Fill Color", description = "Used as the fill color for any tag style with 'Use Global Color' enabled. Preset colors still take priority.", section = globalTagSection)
 	default Color globalFillColor() {
 		return new Color(0, 255, 255, 20);
 	}
@@ -97,41 +92,46 @@ public interface BetterNpcHighlightConfig extends Config {
 	@ConfigItem(keyName = "tileIds", name = "", description = "")
 	void setTileIds(String ids);
 
+	@ConfigItem(position = 4, keyName = "tileUseGlobalColor", name = "Use Global Color", description = "Uses the Global Color and Global Fill Color from the Global Tag Style section instead of the colors below. Preset colors still take priority.", section = tileSection)
+	default boolean tileUseGlobalColor() {
+		return true;
+	}
+
 	@Alpha
-	@ConfigItem(position = 4, keyName = "tileColor", name = "Highlight Color", description = "Sets color of NPC tile highlights", section = tileSection)
+	@ConfigItem(position = 5, keyName = "tileColor", name = "Highlight Color", description = "Sets color of NPC tile highlights", section = tileSection)
 	default Color tileColor() {
 		return Color.CYAN;
 	}
 
 	@Alpha
-	@ConfigItem(position = 5, keyName = "tileFillColor", name = "Fill Color", description = "Sets the fill color of npc highlights", section = tileSection)
+	@ConfigItem(position = 6, keyName = "tileFillColor", name = "Fill Color", description = "Sets the fill color of npc highlights", section = tileSection)
 	default Color tileFillColor() {
 		return new Color(0, 255, 255, 20);
 	}
 
 	@Range(min = 0, max = 50)
-	@ConfigItem(position = 6, keyName = "tileWidth", name = "Highlight Width", description = "Sets the width of npc highlights", section = tileSection)
+	@ConfigItem(position = 7, keyName = "tileWidth", name = "Highlight Width", description = "Sets the width of npc highlights", section = tileSection)
 	default double tileWidth() {
 		return 2;
 	}
 
-	@ConfigItem(position = 7, keyName = "tileAA", name = "Anti-Aliasing", description = "Turns on anti-aliasing for tile overlays. Makes them smoother.", section = tileSection)
+	@ConfigItem(position = 8, keyName = "tileAA", name = "Anti-Aliasing", description = "Turns on anti-aliasing for tile overlays. Makes them smoother.", section = tileSection)
 	default boolean tileAA() {
 		return true;
 	}
 
-	@ConfigItem(position = 8, keyName = "tileRave", name = "Enable Rave Mode", description = "Sets all tile overlays to Rave Mode", section = tileSection)
+	@ConfigItem(position = 9, keyName = "tileRave", name = "Enable Rave Mode", description = "Sets all tile overlays to Rave Mode", section = tileSection)
 	default boolean tileRave() {
 		return false;
 	}
 
-	@ConfigItem(position = 9, keyName = "tileRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = tileSection)
+	@ConfigItem(position = 10, keyName = "tileRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = tileSection)
 	@Units(Units.MILLISECONDS)
 	default int tileRaveSpeed() {
 		return 6000;
 	}
 
-	@ConfigItem(position = 10, keyName = "tileLines", name = "Tile Line Type", description = "Sets the tile outline to regular, dashed, or corners only", section = tileSection)
+	@ConfigItem(position = 11, keyName = "tileLines", name = "Tile Line Type", description = "Sets the tile outline to regular, dashed, or corners only", section = tileSection)
 	default lineType tileLines() {
 		return lineType.REG;
 	}
@@ -162,41 +162,46 @@ public interface BetterNpcHighlightConfig extends Config {
 	@ConfigItem(keyName = "trueTileIds", name = "", description = "")
 	void setTrueTileIds(String ids);
 
+	@ConfigItem(position = 4, keyName = "trueTileUseGlobalColor", name = "Use Global Color", description = "Uses the Global Color and Global Fill Color from the Global Tag Style section instead of the colors below. Preset colors still take priority.", section = trueTileSection)
+	default boolean trueTileUseGlobalColor() {
+		return true;
+	}
+
 	@Alpha
-	@ConfigItem(position = 4, keyName = "trueTileColor", name = "Highlight Color", description = "Sets color of npc highlights", section = trueTileSection)
+	@ConfigItem(position = 5, keyName = "trueTileColor", name = "Highlight Color", description = "Sets color of npc highlights", section = trueTileSection)
 	default Color trueTileColor() {
 		return Color.CYAN;
 	}
 
 	@Alpha
-	@ConfigItem(position = 5, keyName = "trueTileFillColor", name = "Fill Color", description = "Sets the fill color of npc highlights", section = trueTileSection)
+	@ConfigItem(position = 6, keyName = "trueTileFillColor", name = "Fill Color", description = "Sets the fill color of npc highlights", section = trueTileSection)
 	default Color trueTileFillColor() {
 		return new Color(0, 255, 255, 20);
 	}
 
 	@Range(min = 0, max = 50)
-	@ConfigItem(position = 6, keyName = "trueTileWidth", name = "Highlight Width", description = "Sets the width of npc highlights", section = trueTileSection)
+	@ConfigItem(position = 7, keyName = "trueTileWidth", name = "Highlight Width", description = "Sets the width of npc highlights", section = trueTileSection)
 	default double trueTileWidth() {
 		return 2;
 	}
 
-	@ConfigItem(position = 7, keyName = "trueTileAA", name = "Anti-Aliasing", description = "Turns on anti-aliasing for true tile overlays. Makes them smoother.", section = trueTileSection)
+	@ConfigItem(position = 8, keyName = "trueTileAA", name = "Anti-Aliasing", description = "Turns on anti-aliasing for true tile overlays. Makes them smoother.", section = trueTileSection)
 	default boolean trueTileAA() {
 		return true;
 	}
 
-	@ConfigItem(position = 8, keyName = "trueTileRave", name = "Enable Rave Mode", description = "Sets all true tile overlays to Rave Mode", section = trueTileSection)
+	@ConfigItem(position = 9, keyName = "trueTileRave", name = "Enable Rave Mode", description = "Sets all true tile overlays to Rave Mode", section = trueTileSection)
 	default boolean trueTileRave() {
 		return false;
 	}
 
-	@ConfigItem(position = 9, keyName = "trueTileRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = trueTileSection)
+	@ConfigItem(position = 10, keyName = "trueTileRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = trueTileSection)
 	@Units(Units.MILLISECONDS)
 	default int trueTileRaveSpeed() {
 		return 6000;
 	}
 
-	@ConfigItem(position = 10, keyName = "trueTileLines", name = "True Tile Line Type", description = "Sets the true tile outline to regular, dashed, or corners only", section = trueTileSection)
+	@ConfigItem(position = 11, keyName = "trueTileLines", name = "True Tile Line Type", description = "Sets the true tile outline to regular, dashed, or corners only", section = trueTileSection)
 	default lineType trueTileLines() {
 		return lineType.REG;
 	}
@@ -227,41 +232,46 @@ public interface BetterNpcHighlightConfig extends Config {
 	@ConfigItem(keyName = "swTileIds", name = "", description = "")
 	void setSwTileIds(String ids);
 
+	@ConfigItem(position = 4, keyName = "swTileUseGlobalColor", name = "Use Global Color", description = "Uses the Global Color and Global Fill Color from the Global Tag Style section instead of the colors below. Preset colors still take priority.", section = swTileSection)
+	default boolean swTileUseGlobalColor() {
+		return true;
+	}
+
 	@Alpha
-	@ConfigItem(position = 4, keyName = "swTileColor", name = "Highlight Color", description = "Sets color of npc highlights", section = swTileSection)
+	@ConfigItem(position = 5, keyName = "swTileColor", name = "Highlight Color", description = "Sets color of npc highlights", section = swTileSection)
 	default Color swTileColor() {
 		return Color.CYAN;
 	}
 
 	@Alpha
-	@ConfigItem(position = 5, keyName = "swTileFillColor", name = "Fill Color", description = "Sets the fill color of npc highlights", section = swTileSection)
+	@ConfigItem(position = 6, keyName = "swTileFillColor", name = "Fill Color", description = "Sets the fill color of npc highlights", section = swTileSection)
 	default Color swTileFillColor() {
 		return new Color(0, 255, 255, 20);
 	}
 
 	@Range(min = 0, max = 50)
-	@ConfigItem(position = 6, keyName = "swTileWidth", name = "Highlight Width", description = "Sets the width of npc highlights", section = swTileSection)
+	@ConfigItem(position = 7, keyName = "swTileWidth", name = "Highlight Width", description = "Sets the width of npc highlights", section = swTileSection)
 	default double swTileWidth() {
 		return 2;
 	}
 
-	@ConfigItem(position = 7, keyName = "swTileAA", name = "Anti-Aliasing", description = "Turns on anti-aliasing for the sw tile overlays. Makes them smoother.", section = swTileSection)
+	@ConfigItem(position = 8, keyName = "swTileAA", name = "Anti-Aliasing", description = "Turns on anti-aliasing for the sw tile overlays. Makes them smoother.", section = swTileSection)
 	default boolean swTileAA() {
 		return true;
 	}
 
-	@ConfigItem(position = 8, keyName = "swTileRave", name = "Enable Rave Mode", description = "Sets all sw tile overlays to Rave Mode", section = swTileSection)
+	@ConfigItem(position = 9, keyName = "swTileRave", name = "Enable Rave Mode", description = "Sets all sw tile overlays to Rave Mode", section = swTileSection)
 	default boolean swTileRave() {
 		return false;
 	}
 
-	@ConfigItem(position = 9, keyName = "swTileRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = swTileSection)
+	@ConfigItem(position = 10, keyName = "swTileRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = swTileSection)
 	@Units(Units.MILLISECONDS)
 	default int swTileRaveSpeed() {
 		return 6000;
 	}
 
-	@ConfigItem(position = 10, keyName = "swTileLines", name = "South West Tile Line Type", description = "Sets the sw tile outline to regular, dashed, or corners only", section = swTileSection)
+	@ConfigItem(position = 11, keyName = "swTileLines", name = "South West Tile Line Type", description = "Sets the sw tile outline to regular, dashed, or corners only", section = swTileSection)
 	default lineType swTileLines() {
 		return lineType.REG;
 	}
@@ -292,41 +302,46 @@ public interface BetterNpcHighlightConfig extends Config {
 	@ConfigItem(keyName = "swTrueTileIds", name = "", description = "")
 	void setSwTrueTileIds(String ids);
 
+	@ConfigItem(position = 4, keyName = "swTrueTileUseGlobalColor", name = "Use Global Color", description = "Uses the Global Color and Global Fill Color from the Global Tag Style section instead of the colors below. Preset colors still take priority.", section = swTrueTileSection)
+	default boolean swTrueTileUseGlobalColor() {
+		return false;
+	}
+
 	@Alpha
-	@ConfigItem(position = 4, keyName = "swTrueTileColor", name = "Highlight Color", description = "Sets color of npc highlights", section = swTrueTileSection)
+	@ConfigItem(position = 5, keyName = "swTrueTileColor", name = "Highlight Color", description = "Sets color of npc highlights", section = swTrueTileSection)
 	default Color swTrueTileColor() {
 		return Color.CYAN;
 	}
 
 	@Alpha
-	@ConfigItem(position = 5, keyName = "swTrueTileFillColor", name = "Fill Color", description = "Sets the fill color of npc highlights", section = swTrueTileSection)
+	@ConfigItem(position = 6, keyName = "swTrueTileFillColor", name = "Fill Color", description = "Sets the fill color of npc highlights", section = swTrueTileSection)
 	default Color swTrueTileFillColor() {
 		return new Color(0, 255, 255, 20);
 	}
 
 	@Range(min = 0, max = 50)
-	@ConfigItem(position = 6, keyName = "swTrueTileWidth", name = "Highlight Width", description = "Sets the width of npc highlights", section = swTrueTileSection)
+	@ConfigItem(position = 7, keyName = "swTrueTileWidth", name = "Highlight Width", description = "Sets the width of npc highlights", section = swTrueTileSection)
 	default double swTrueTileWidth() {
 		return 2;
 	}
 
-	@ConfigItem(position = 7, keyName = "swTrueTileAA", name = "Anti-Aliasing", description = "Turns on anti-aliasing for the sw true tile overlays. Makes them smoother.", section = swTrueTileSection)
+	@ConfigItem(position = 8, keyName = "swTrueTileAA", name = "Anti-Aliasing", description = "Turns on anti-aliasing for the sw true tile overlays. Makes them smoother.", section = swTrueTileSection)
 	default boolean swTrueTileAA() {
 		return true;
 	}
 
-	@ConfigItem(position = 8, keyName = "swTrueTileRave", name = "Enable Rave Mode", description = "Sets all sw true tile overlays to Rave Mode", section = swTrueTileSection)
+	@ConfigItem(position = 9, keyName = "swTrueTileRave", name = "Enable Rave Mode", description = "Sets all sw true tile overlays to Rave Mode", section = swTrueTileSection)
 	default boolean swTrueTileRave() {
 		return false;
 	}
 
-	@ConfigItem(position = 9, keyName = "swTrueTileRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = swTrueTileSection)
+	@ConfigItem(position = 10, keyName = "swTrueTileRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = swTrueTileSection)
 	@Units(Units.MILLISECONDS)
 	default int swTrueTileRaveSpeed() {
 		return 6000;
 	}
 
-	@ConfigItem(position = 10, keyName = "swTrueTileLines", name = "South West True Tile Line Type", description = "Sets the sw true tile outline to regular, dashed, or corners only", section = swTrueTileSection)
+	@ConfigItem(position = 11, keyName = "swTrueTileLines", name = "South West True Tile Line Type", description = "Sets the sw true tile outline to regular, dashed, or corners only", section = swTrueTileSection)
 	default lineType swTrueTileLines() {
 		return lineType.REG;
 	}
@@ -357,35 +372,40 @@ public interface BetterNpcHighlightConfig extends Config {
 	@ConfigItem(keyName = "hullIds", name = "", description = "")
 	void setHullIds(String ids);
 
+	@ConfigItem(position = 4, keyName = "hullUseGlobalColor", name = "Use Global Color", description = "Uses the Global Color and Global Fill Color from the Global Tag Style section instead of the colors below. Preset colors still take priority.", section = hullSection)
+	default boolean hullUseGlobalColor() {
+		return false;
+	}
+
 	@Alpha
-	@ConfigItem(position = 4, keyName = "hullColor", name = "Highlight Color", description = "Sets color of npc highlights", section = hullSection)
+	@ConfigItem(position = 5, keyName = "hullColor", name = "Highlight Color", description = "Sets color of npc highlights", section = hullSection)
 	default Color hullColor() {
 		return Color.CYAN;
 	}
 
 	@Alpha
-	@ConfigItem(position = 5, keyName = "hullFillColor", name = "Fill Color", description = "Sets the fill color of npc highlights", section = hullSection)
+	@ConfigItem(position = 6, keyName = "hullFillColor", name = "Fill Color", description = "Sets the fill color of npc highlights", section = hullSection)
 	default Color hullFillColor() {
 		return new Color(0, 255, 255, 20);
 	}
 
 	@Range(min = 0, max = 50)
-	@ConfigItem(position = 6, keyName = "hullWidth", name = "Highlight Width", description = "Sets the width of npc highlights", section = hullSection)
+	@ConfigItem(position = 7, keyName = "hullWidth", name = "Highlight Width", description = "Sets the width of npc highlights", section = hullSection)
 	default double hullWidth() {
 		return 2;
 	}
 
-	@ConfigItem(position = 7, keyName = "hullAA", name = "Anti-Aliasing", description = "Turns on anti-aliasing for hull overlays. Makes them smoother.", section = hullSection)
+	@ConfigItem(position = 8, keyName = "hullAA", name = "Anti-Aliasing", description = "Turns on anti-aliasing for hull overlays. Makes them smoother.", section = hullSection)
 	default boolean hullAA() {
 		return true;
 	}
 
-	@ConfigItem(position = 8, keyName = "hullRave", name = "Enable Rave Mode", description = "Sets all hull overlays to Rave Mode", section = hullSection)
+	@ConfigItem(position = 9, keyName = "hullRave", name = "Enable Rave Mode", description = "Sets all hull overlays to Rave Mode", section = hullSection)
 	default boolean hullRave() {
 		return false;
 	}
 
-	@ConfigItem(position = 9, keyName = "hullRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = hullSection)
+	@ConfigItem(position = 10, keyName = "hullRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = hullSection)
 	@Units(Units.MILLISECONDS)
 	default int hullRaveSpeed() {
 		return 6000;
@@ -417,18 +437,23 @@ public interface BetterNpcHighlightConfig extends Config {
 	@ConfigItem(keyName = "areaIds", name = "", description = "")
 	void setAreaIds(String ids);
 
+	@ConfigItem(position = 4, keyName = "areaUseGlobalColor", name = "Use Global Color", description = "Uses the Global Color from the Global Tag Style section instead of the color below. Preset colors still take priority.", section = areaSection)
+	default boolean areaUseGlobalColor() {
+		return false;
+	}
+
 	@Alpha
-	@ConfigItem(position = 4, keyName = "areaColor", name = "Highlight Color", description = "Sets color of npc highlights", section = areaSection)
+	@ConfigItem(position = 5, keyName = "areaColor", name = "Highlight Color", description = "Sets color of npc highlights", section = areaSection)
 	default Color areaColor() {
 		return new Color(0, 255, 255, 50);
 	}
 
-	@ConfigItem(position = 5, keyName = "areaRave", name = "Enable Rave Mode", description = "Sets all area overlays to Rave Mode", section = areaSection)
+	@ConfigItem(position = 6, keyName = "areaRave", name = "Enable Rave Mode", description = "Sets all area overlays to Rave Mode", section = areaSection)
 	default boolean areaRave() {
 		return false;
 	}
 
-	@ConfigItem(position = 6, keyName = "areaRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = areaSection)
+	@ConfigItem(position = 7, keyName = "areaRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = areaSection)
 	@Units(Units.MILLISECONDS)
 	default int areaRaveSpeed() {
 		return 6000;
@@ -460,30 +485,35 @@ public interface BetterNpcHighlightConfig extends Config {
 	@ConfigItem(keyName = "outlineIds", name = "", description = "")
 	void setOutlineIds(String ids);
 
+	@ConfigItem(position = 4, keyName = "outlineUseGlobalColor", name = "Use Global Color", description = "Uses the Global Color from the Global Tag Style section instead of the color below. Preset colors still take priority.", section = outlineSection)
+	default boolean outlineUseGlobalColor() {
+		return false;
+	}
+
 	@Alpha
-	@ConfigItem(position = 4, keyName = "outlineColor", name = "Highlight Color", description = "Sets color of npc highlights", section = outlineSection)
+	@ConfigItem(position = 5, keyName = "outlineColor", name = "Highlight Color", description = "Sets color of npc highlights", section = outlineSection)
 	default Color outlineColor() {
 		return Color.CYAN;
 	}
 
 	@Range(min = 0, max = 50)
-	@ConfigItem(position = 5, keyName = "outlineWidth", name = "Outline Width", description = "Sets the width of outline highlights", section = outlineSection)
+	@ConfigItem(position = 6, keyName = "outlineWidth", name = "Outline Width", description = "Sets the width of outline highlights", section = outlineSection)
 	default int outlineWidth() {
 		return 2;
 	}
 
 	@Range(min = 0, max = 5)
-	@ConfigItem(position = 6, keyName = "outlineFeather", name = "Outline Feather", description = "Sets the feather of the outline highlights", section = outlineSection)
+	@ConfigItem(position = 7, keyName = "outlineFeather", name = "Outline Feather", description = "Sets the feather of the outline highlights", section = outlineSection)
 	default int outlineFeather() {
 		return 2;
 	}
 
-	@ConfigItem(position = 7, keyName = "outlineRave", name = "Enable Rave Mode", description = "Sets all outline overlays to Rave Mode", section = outlineSection)
+	@ConfigItem(position = 8, keyName = "outlineRave", name = "Enable Rave Mode", description = "Sets all outline overlays to Rave Mode", section = outlineSection)
 	default boolean outlineRave() {
 		return false;
 	}
 
-	@ConfigItem(position = 8, keyName = "outlineRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = outlineSection)
+	@ConfigItem(position = 9, keyName = "outlineRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = outlineSection)
 	@Units(Units.MILLISECONDS)
 	default int outlineRaveSpeed() {
 		return 6000;
@@ -515,29 +545,34 @@ public interface BetterNpcHighlightConfig extends Config {
 	@ConfigItem(keyName = "clickboxIds", name = "", description = "")
 	void setClickboxIds(String ids);
 
+	@ConfigItem(position = 4, keyName = "clickboxUseGlobalColor", name = "Use Global Color", description = "Uses the Global Color and Global Fill Color from the Global Tag Style section instead of the colors below. Preset colors still take priority.", section = clickboxSection)
+	default boolean clickboxUseGlobalColor() {
+		return false;
+	}
+
 	@Alpha
-	@ConfigItem(position = 4, keyName = "clickboxColor", name = "Highlight Color", description = "Sets color of NPC clickbox highlights", section = clickboxSection)
+	@ConfigItem(position = 5, keyName = "clickboxColor", name = "Highlight Color", description = "Sets color of NPC clickbox highlights", section = clickboxSection)
 	default Color clickboxColor() {
 		return Color.CYAN;
 	}
 
 	@Alpha
-	@ConfigItem(position = 5, keyName = "clickboxFillColor", name = "Fill Color", description = "Sets the fill color of NPC clickbox highlights", section = clickboxSection)
+	@ConfigItem(position = 6, keyName = "clickboxFillColor", name = "Fill Color", description = "Sets the fill color of NPC clickbox highlights", section = clickboxSection)
 	default Color clickboxFillColor() {
 		return new Color(0, 255, 255, 20);
 	}
 
-	@ConfigItem(position = 6, keyName = "clickboxAA", name = "Anti-Aliasing", description = "Turns on anti-aliasing for the clickboxes. Makes them smoother.", section = clickboxSection)
+	@ConfigItem(position = 7, keyName = "clickboxAA", name = "Anti-Aliasing", description = "Turns on anti-aliasing for the clickboxes. Makes them smoother.", section = clickboxSection)
 	default boolean clickboxAA() {
 		return true;
 	}
 
-	@ConfigItem(position = 7, keyName = "clickboxRave", name = "Enable Rave Mode", description = "Sets all clickbox overlays to Rave Mode", section = clickboxSection)
+	@ConfigItem(position = 8, keyName = "clickboxRave", name = "Enable Rave Mode", description = "Sets all clickbox overlays to Rave Mode", section = clickboxSection)
 	default boolean clickboxRave() {
 		return false;
 	}
 
-	@ConfigItem(position = 8, keyName = "clickboxRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = clickboxSection)
+	@ConfigItem(position = 9, keyName = "clickboxRaveSpeed", name = "Rave Speed", description = "Sets the speed the overlays rave at", section = clickboxSection)
 	@Units(Units.MILLISECONDS)
 	default int clickboxRaveSpeed() {
 		return 6000;

@@ -62,7 +62,6 @@ The plugin package root is `com.betternpchighlight`, and all source lives under
 ## Removed features (by design)
 
 - Turbo mode (a highlight type).
-- Rave mode — all `*Rave`/`*RaveSpeed` options and logic.
 - Chat commands — `!tag`/`!untag`/`!hide`/`!unhide` (`ChatCommandManager`, `tagCommands`, and
   `entityHiderCommands` config). Right-click tagging remains.
 - The config "Instructions" help-text section.
