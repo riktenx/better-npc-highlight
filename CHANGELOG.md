@@ -2,6 +2,7 @@
 ## 2026-11-01
 - **Refactor**: Moved global color inheritence to each individual tag type. This separates the global tag color from the style applied on the right click menu.
 - **Added**: Option to hide the shift-right click menu entry from appearing. https://github.com/riktenx/better-npc-highlight/issues/14
+- **Added**: In config lists for highlighted NPCs, an arbitrary hex value can now be used if 1 of the 5 preset colors is not enough. This hex value may include or exclude an opacity value as the first two digits. Example: `Man:#FF1EF818` or `Man:#1EF818`. The highlight color is always fully opaque, and the fill color can't be customized — it is applied with the same color at 20% opacity unless otherwise specified.
 
 ## 2026-10-08
 - **Fix**: Fixed issue recoloring NPC submenu entries. Remains unsupported until RuneLite adds support for fetching NPC from submenu entries.

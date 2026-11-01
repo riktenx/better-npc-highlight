@@ -13,6 +13,13 @@ import com.betternpchighlight.data.NameAndIdContainer;
 import net.runelite.api.Client;
 
 public class ColorManager {
+	/**
+	 * Fill opacity used for a hex color suffix when the style has no fill color
+	 * to take its opacity from (area and outline). Matches the default alpha of
+	 * the fill colors in the config.
+	 */
+	private static final int DEFAULT_FILL_ALPHA = 20;
+
 	@Inject
 	private Client client;
 
@@ -71,12 +78,67 @@ public class ColorManager {
 	}
 
 	/**
-	 * Returns color of either the config or a preset if selected
+	 * Parses a hex color tag suffix such as "#FF1EF818" (AARRGGBB, the first two
+	 * digits are the opacity) or "#1EF818" (RRGGBB, fully opaque). The leading
+	 * "#" is required. Returns null when the value is not a valid hex color, so
+	 * numeric preset suffixes and anything else fall through to the preset and
+	 * default color handling.
 	 *
 	 * @return Color
 	 */
-	public Color getHighlightColor(String preset, Color color) {
-		switch (preset) {
+	public static Color parseHexColor(String value) {
+		if (value == null || !value.startsWith("#") || (value.length() != 7 && value.length() != 9))
+		{
+			return null;
+		}
+
+		String digits = value.substring(1);
+		for (int i = 0; i < digits.length(); i++)
+		{
+			if (Character.digit(digits.charAt(i), 16) == -1)
+			{
+				return null;
+			}
+		}
+
+		long hex = Long.parseLong(digits, 16);
+		if (hasExplicitOpacity(value))
+		{
+			// #AARRGGBB - the first two digits are the opacity
+			int rgb = (int) (hex & 0xFFFFFF);
+			int alpha = (int) ((hex >> 24) & 0xFF);
+			return new Color((rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF, alpha);
+		}
+
+		// #RRGGBB - fully opaque
+		return new Color((int) ((hex >> 16) & 0xFF), (int) ((hex >> 8) & 0xFF), (int) (hex & 0xFF), 255);
+	}
+
+	/**
+	 * Whether a hex color suffix includes an explicit opacity value, i.e. it is
+	 * an "#AARRGGBB" value instead of a plain "#RRGGBB". Only meaningful for
+	 * values parseHexColor accepts.
+	 */
+	private static boolean hasExplicitOpacity(String value) {
+		return value != null && value.length() == 9;
+	}
+
+	/**
+	 * Returns color of either the config, a preset if selected, or a hex color
+	 * suffix such as "#FF1EF818" (AARRGGBB) / "#1EF818" (RRGGBB). The suffix
+	 * color is always fully opaque; the opacity from the suffix applies to the
+	 * fill instead.
+	 *
+	 * @return Color
+	 */
+	public Color getHighlightColor(String presetOrHex, Color color) {
+		Color hex = parseHexColor(presetOrHex);
+		if (hex != null)
+		{
+			return new Color(hex.getRed(), hex.getGreen(), hex.getBlue(), 255);
+		}
+
+		switch (presetOrHex) {
 		case "1":
 			return config.presetColor1();
 		case "2":
@@ -93,12 +155,31 @@ public class ColorManager {
 	}
 
 	/**
-	 * Returns fill color of either the config or a preset if selected
+	 * Returns fill color of either the config, a preset if selected, or the fill
+	 * for a hex color suffix: the suffix color at the opacity from the suffix
+	 * when it includes one, otherwise at the style fill color's opacity (or the
+	 * default fill opacity when the style has no fill color)
 	 *
 	 * @return Color
 	 */
-	public Color getHighlightFillColor(String preset, Color color) {
-		switch (preset) {
+	public Color getHighlightFillColor(String presetOrHex, Color color) {
+		Color hex = parseHexColor(presetOrHex);
+		if (hex != null)
+		{
+			int alpha;
+			if (hasExplicitOpacity(presetOrHex))
+			{
+				alpha = hex.getAlpha();
+			}
+			else
+			{
+				alpha = color != null ? color.getAlpha() : DEFAULT_FILL_ALPHA;
+			}
+
+			return new Color(hex.getRed(), hex.getGreen(), hex.getBlue(), alpha);
+		}
+
+		switch (presetOrHex) {
 		case "1":
 			return config.presetFillColor1();
 		case "2":
