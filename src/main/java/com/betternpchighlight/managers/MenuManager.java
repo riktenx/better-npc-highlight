@@ -136,7 +136,7 @@ public class MenuManager {
 		}
 
 		// Holding shift adds a dedicated tag/untag entry with a preset submenu.
-		if (client.isKeyPressed(KeyCode.KC_SHIFT))
+		if (!config.hideTagMenuEntry() && client.isKeyPressed(KeyCode.KC_SHIFT))
 		{
 			addTagMenuEntry(event, npc, option);
 		}

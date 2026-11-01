@@ -830,7 +830,12 @@ public interface BetterNpcHighlightConfig extends Config {
 		return npcMinimapMode.OFF;
 	}
 
-	@ConfigItem(position = 20, keyName = "debugNPC", name = "Debug NPC Info", description = "Highlights all NPCs with their Name and ID", section = miscellaneousSection)
+	@ConfigItem(position = 20, keyName = "hideTagMenuEntry", name = "Hide Right Click Menu Entry", description = "Hides the Tag-NPC/Untag-NPC entry from the right click menu", section = miscellaneousSection)
+	default boolean hideTagMenuEntry() {
+		return false;
+	}
+
+	@ConfigItem(position = 21, keyName = "debugNPC", name = "Debug NPC Info", description = "Highlights all NPCs with their Name and ID", section = miscellaneousSection)
 	default boolean debugNPC() {
 		return false;
 	}
